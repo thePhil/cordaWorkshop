@@ -45,6 +45,9 @@ allprojects {
         }
         maven { url "https://ci-artifactory.corda.r3cev.com/artifactory/corda" }
         maven { url "https://jitpack.io" }
+        maven {
+            url 'https://dl.bintray.com/palantir/releases' // docker-compose-rule is published on bintray
+        }
 
     }
 
@@ -125,6 +128,7 @@ subprojects {
 apply plugin: 'net.corda.plugins.cordapp'
 apply plugin: 'net.corda.plugins.cordformation'
 apply plugin: 'net.corda.plugins.quasar-utils'
+//apply plugin: 'net.corda.plugins.publish-utils'
 
 cordapp {
     info {
@@ -137,7 +141,8 @@ cordapp {
 
 dependencies {
 //    testCompile "junit:junit:$junit_version"
-
+    compile "$corda_release_group:corda-rpc:$corda_release_version"
+    compile "$corda_release_group:corda-core:$corda_release_version"
     // Corda dependencies.
     cordaCompile "$corda_release_group:corda-core:$corda_release_version"
     cordaCompile "$corda_release_group:corda-node-api:$corda_release_version"
@@ -150,6 +155,8 @@ dependencies {
     cordaCompile "org.apache.logging.log4j:log4j-slf4j-impl:${log4j_version}"
     cordaCompile "org.apache.logging.log4j:log4j-web:${log4j_version}"
     cordaCompile "org.slf4j:jul-to-slf4j:$slf4j_version"
+    compileOnly "org.projectlombok:lombok:${lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${lombok_version}"
 }
 
 task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
@@ -188,3 +195,4 @@ task deployNodes(type: net.corda.plugins.Cordform, dependsOn: ['jar']) {
         rpcUsers = [[user: "user1", "password": "test", "permissions": ["ALL"]]]
     }
 }
+
