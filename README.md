@@ -6,11 +6,11 @@ necessary privacy, required in an enterprise environment.
 Corda is a product from the company R3, based in London. There exist two versions of Corda. The Open Source Version as well as an Enterprise derivative.
 The Open Source Version of Corda (Corda OSS) is licensed under the Apache 2.0 license.
 
-[Corda Website](https://www.corda.net/)
-[Corda Documentation](https://docs.corda.net/)
-[Corda Getting Setup](https://docs.corda.net/head/getting-set-up.html)
-[Corda Java Template](https://github.com/corda/cordapp-template-java)
-[Corda Business Network Membership Service](https://github.com/corda/corda-solutions/tree/master/bn-apps/memberships-management)
+* [Corda Website](https://www.corda.net/)
+* [Corda Documentation](https://docs.corda.net/)
+* [Corda Getting Setup](https://docs.corda.net/head/getting-set-up.html)
+* [Corda Java Template](https://github.com/corda/cordapp-template-java)
+* [Corda Business Network Membership Service](https://github.com/corda/corda-solutions/tree/master/bn-apps/memberships-management)
 
 ## Project Structure
 ### Data -- Contracts and States
