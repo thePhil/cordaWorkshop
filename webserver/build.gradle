@@ -14,7 +14,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-security'
+//    implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
     implementation "$corda_release_group:corda-rpc:$corda_release_version"
@@ -27,14 +27,14 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.springframework.security:spring-security-test'
+ //   testImplementation 'org.springframework.security:spring-security-test'
 }
 
 springBoot {
     mainClassName = "com.swissre.tecconference.introduction.corda.webserver.CordaWorkshopApplication"
 }
 
-task runSpringServer(type: JavaExec, dependsOn: assemble) {
+task runSpringServerPartyA(type: JavaExec, dependsOn: assemble) {
     classpath = sourceSets.main.runtimeClasspath
     main = 'com.swissre.tecconference.introduction.corda.webserver.CordaWorkshopApplication'
     args '--server.port=10050', '--config.rpc.host=localhost', '--config.rpc.port=10006', '--config.rpc.username=user1', '--config.rpc.password=test'

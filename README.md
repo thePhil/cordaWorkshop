@@ -33,3 +33,22 @@ Make sure you have checked out the following git repository, which I prepared to
 ## Sample Scenario
 During the workshop we are going to work on a very simple insurance application, a new car owner is buying an insurance policy to cover damages to his car. 
 Optionally we are going to also include a very simple claims process without a payment.
+
+
+## Getting Started
+
+In order to build the software do the following
+`./gradlew clean build deployNodes -x test`
+
+If you are using a normal terminal, execute the following line in order to start the local network with three nodes:
+`./build/nodes/runnodes`
+
+If you are running under a `tmux` environment execute the included script:
+`./startNodes.sh`
+
+The `startNodes.sh` script needs to be adapted every time you change a configuration in the nodes. For a new version 
+of your corDapp restart your nodes.
+
+The webserver can be started either through the functionality in IntelliJ or via a command line execution. Just 
+ensure you are including the proper command line arguments. An example can be found in the webserver project [Gradle 
+File](./webserver/build.gradle) with the task: `runSpringServerPartyA`.

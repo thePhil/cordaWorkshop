@@ -1,23 +1,37 @@
 package com.swissre.tecconference.introduction.corda.flows;
 
 import co.paralleluniverse.fibers.Suspendable;
-import net.corda.core.flows.FlowException;
-import net.corda.core.flows.FlowLogic;
-import net.corda.core.flows.FlowSession;
-import net.corda.core.flows.InitiatedBy;
+import lombok.AllArgsConstructor;
+import net.corda.core.crypto.SecureHash;
+import net.corda.core.flows.*;
+import net.corda.core.transactions.SignedTransaction;
+import net.corda.core.utilities.ProgressTracker;
+import org.jetbrains.annotations.NotNull;
 
 @InitiatedBy(SimpleStarterFlow.class)
-public class SimpleFlowResponder extends FlowLogic<Void> {
+@AllArgsConstructor
+public class SimpleFlowResponder extends FlowLogic<net.corda.core.transactions.SignedTransaction> {
     private FlowSession commonSession;
-
-    public SimpleFlowResponder(FlowSession session) {
-        this.commonSession = session;
-    }
-
 
     @Suspendable
     @Override
-    public Void call() throws FlowException {
-        return null;
+    public SignedTransaction call() throws FlowException {
+
+
+        class SignTrxFlow extends SignTransactionFlow {
+            private SignTrxFlow(FlowSession otherSession, ProgressTracker progressTracker) {
+                super(otherSession, progressTracker);
+            }
+
+            @Override
+            protected void checkTransaction(@NotNull SignedTransaction stx) throws FlowException {
+            }
+        }
+        ;
+
+        SecureHash txISigned = subFlow(new SignTrxFlow(commonSession, SignTransactionFlow.tracker())).getId();
+        System.out.println(txISigned);
+
+        return subFlow(new ReceiveFinalityFlow(commonSession, txISigned));
     }
 }

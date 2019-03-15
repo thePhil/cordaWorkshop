@@ -31,14 +31,14 @@ public class NodeRPCConnection implements AutoCloseable {
     private int rpcPort;
 
     private CordaRPCConnection rpcConnection;
-    CordaRPCOps proxy;
+    public CordaRPCOps proxy;
 
     @PostConstruct
     public void initialiseNodeRPCConnection() {
         NetworkHostAndPort rpcAddress = new NetworkHostAndPort(host, rpcPort);
         CordaRPCClient rpcClient = new CordaRPCClient(rpcAddress);
-//        rpcConnection = rpcClient.start(username, password);
-//        proxy = rpcConnection.getProxy();
+        rpcConnection = rpcClient.start(username, password);
+        proxy = rpcConnection.getProxy();
     }
 
     @PreDestroy
